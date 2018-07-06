@@ -217,12 +217,11 @@ const noteful = (function () {
         store.currentNote = {};
       }
 
-      console.info('Get notes by folderId, coming soon...');
-      // api.search('/api/notes', store.currentQuery)
-      //   .then(response => {
-      //     store.notes = response;
-      //     render();
-      //   });
+      api.search('/api/notes', store.currentQuery)
+        .then(response => {
+          store.notes = response;
+          render();
+        });
     });
   }
 

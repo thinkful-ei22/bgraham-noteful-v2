@@ -10,15 +10,22 @@ router.get('/', (req, res, next) => {
     .then(results => {
       res.json(results);
     })
-    .catch(err => next(err));
+    .catch(err => {
+      next(err);
+    });
 });
 
 router.get('/:id', (req, res, next) => {
-  knex.select('id', 'name')
+  knex.first('id', 'name')
     .from('folders')
     .where('id', req.params.id)
-    .then(results => {
-      res.json(results);
+    .then(result => {
+      if (result){
+        res.json(result);
+      }
+      else {
+        next();
+      }
     })
     .catch(err => next(err));
 });
